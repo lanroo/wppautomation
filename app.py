@@ -36,24 +36,22 @@ def send_messages_via_whatsapp(numbers, message):
     time.sleep(20)  # Tempo para escanear o QR Code (ajuste conforme necessário)
     status_messages.append("Conexão estabelecida com sucesso.")
 
-    # Para cada número, envia a mensagem
+    # Para cada número, abre a conversa e envia a mensagem automaticamente
     for number in numbers:
+        # Vai diretamente para a URL de envio de mensagem para o número
         driver.get(f"https://web.whatsapp.com/send?phone={number}&text={message}")
-        
         try:
-            # Espera o campo de entrada de mensagem aparecer (até 30 segundos)
-            message_box = WebDriverWait(driver, 30).until(
-                EC.presence_of_element_located((By.XPATH, "//div[@title='Escreva uma mensagem']"))
+            # Espera o botão de envio aparecer e clica para enviar a mensagem
+            send_button = WebDriverWait(driver, 30).until(
+                EC.element_to_be_clickable((By.XPATH, "//span[@data-icon='send']"))
             )
-            
-            # Localiza o campo de entrada e envia a mensagem
-            message_box.send_keys(Keys.ENTER)  # Pressiona Enter para enviar a mensagem
+            send_button.click()
             status_messages.append(f"Mensagem enviada para {number}")
 
         except Exception as e:
             status_messages.append(f"Erro ao enviar para {number}: {e}")
         
-        time.sleep(5)  # Pausa entre mensagens para evitar bloqueio
+        time.sleep(3)  # Pausa para evitar bloqueio e garantir tempo de processamento
 
     # Fecha o navegador após enviar todas as mensagens
     driver.quit()
@@ -100,8 +98,6 @@ def confirm():
 def send_messages():
     message = request.form['message']
     numbers = request.form.getlist('numbers')
-
-    # Enviar mensagens usando o WhatsApp Web em uma função assíncrona
     try:
         send_messages_via_whatsapp(numbers, message)
         return redirect(url_for('status'))
