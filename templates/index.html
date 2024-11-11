@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Envio de Mensagens</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Envio de Mensagens pelo WhatsApp</h1>
+        <form action="/confirm" method="post" enctype="multipart/form-data">
+            <label for="message">Mensagem:</label>
+            <textarea name="message" required></textarea><br><br>
+            <label for="file">Selecione o arquivo (CSV, XLS, XLSX):</label>
+            <input type="file" name="file" required><br><br>
+            <button type="submit">Confirmar</button>
+        </form>
+    </div>
+</body>
+</html>

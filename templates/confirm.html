@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmação de Envio</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Confirmação de Envio</h1>
+        <p>Mensagem a ser enviada:</p>
+        <p>{{ message }}</p>
+        <p>Números:</p>
+        <ul class="number-list">
+            {% for number in numbers %}
+                <li>{{ number }}</li>
+            {% endfor %}
+        </ul>
+        <form action="/send_messages" method="post">
+            <input type="hidden" name="message" value="{{ message }}">
+            {% for number in numbers %}
+                <input type="hidden" name="numbers" value="{{ number }}">
+            {% endfor %}
+            <button type="submit">Enviar Mensagens</button>
+        </form>
+        <a href="/" class="cancel-link">Cancelar</a>
+    </div>
+</body>
+</html>

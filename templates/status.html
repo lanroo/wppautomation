@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Status do Envio</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script>
+        function updateStatus() {
+            fetch('/get_status')
+                .then(response => response.json())
+                .then(data => {
+                    const statusList = document.getElementById("status-list");
+                    statusList.innerHTML = "";
+                    data.forEach(status => {
+                        const li = document.createElement("li");
+                        li.textContent = status;
+                        statusList.appendChild(li);
+                    });
+                });
+        }
+
+        setInterval(updateStatus, 2000);  // Atualiza o status a cada 2 segundos
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Status do Envio de Mensagens</h1>
+        <ul id="status-list" class="number-list">
+            <li>Carregando status...</li>
+        </ul>
+    </div>
+</body>
+</html>
