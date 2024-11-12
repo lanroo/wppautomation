@@ -1,8 +1,8 @@
 # Ignorar arquivos de ambiente
 .env
 
-# Ignorar o executável do chromedriver
-chromedriver.exe
+mensagem.txt
+
 
 # Ignorar a pasta de uploads e todos os seus conteúdos
 uploads/

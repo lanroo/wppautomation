@@ -8,22 +8,18 @@
 <body>
     <div class="container">
         <h1>Confirmação de Envio</h1>
-        <p>Mensagem a ser enviada:</p>
-        <p>{{ message }}</p>
-        <p>Números:</p>
-        <ul class="number-list">
-            {% for number in numbers %}
-                <li>{{ number }}</li>
-            {% endfor %}
-        </ul>
-        <form action="/send_messages" method="post">
+        <p><strong>Mensagem a ser enviada:</strong></p>
+        <pre>{{ message }}</pre> <!-- Usando <pre> para preservar a formatação -->
+        
+        <form action="{{ url_for('send_messages') }}" method="post">
             <input type="hidden" name="message" value="{{ message }}">
+            <p><strong>Números:</strong></p>
             {% for number in numbers %}
-                <input type="hidden" name="numbers" value="{{ number }}">
+                <input type="text" name="numbers" value="{{ number }}" readonly>
             {% endfor %}
             <button type="submit">Enviar Mensagens</button>
+            <a href="{{ url_for('index') }}" class="cancel-link">Cancelar</a>
         </form>
-        <a href="/" class="cancel-link">Cancelar</a>
     </div>
 </body>
 </html>
